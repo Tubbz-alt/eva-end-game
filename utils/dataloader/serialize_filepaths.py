@@ -16,7 +16,8 @@ def serialize_filepaths_data(datasetPaths, dataPicklePath="./"):
     dataset_filepaths = []
     bg_filepaths = sorted(get_folder_file_paths(datasetPaths.get("bg"), "/*.jpg"), key=get_number)
 
-    for bg in bg_filepaths:
+    # for bg in bg_filepaths:
+    for bg in range(1, 4):
         folder = str(get_number(bg))
         fg_bg_filepaths = sorted(get_folder_file_paths(datasetPaths.get("fg_bg"), "/"+folder+"/*.jpg"), key=get_number)
         fg_bg_mask_filepaths = sorted(get_folder_file_paths(datasetPaths.get("fg_bg_mask"), "/"+folder+"/*.jpg"), key=get_number)

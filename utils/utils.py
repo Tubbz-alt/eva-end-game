@@ -4,6 +4,7 @@ import torch
 from torchvision.utils import make_grid
 from textwrap import wrap
 from PIL import Image
+from prediction import predict
 
 def imshow(img, title=None, normalizeVal=0.5):
     img = img / 2 + normalizeVal     # unnormalize
@@ -105,3 +106,9 @@ def plot_endgame_predictions(data, prediction, batch_size=5):
   plt.subplots_adjust(wspace=0, hspace=0)
   plt.tight_layout()
   plt.show()
+
+def show_predictions(model, loader, device, noOfImages=8):
+  data = next(iter(loader))
+  dep_out, seg_out = predict(model, device, data)
+  prediction = {"dense_depth":dep_out, "fg_bg_mask":seg_out}
+  plot_endgame_predictions(data, prediction, 8)

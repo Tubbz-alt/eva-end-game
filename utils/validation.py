@@ -5,23 +5,11 @@ from torch.autograd import Variable
 from tqdm import tqdm
 import gc
 import time
+from loss import *
 
 test_losses = []
 test_acc = []
-bce_loss = nn.BCELoss(size_average=True)
 
-def muti_bce_loss_fusion(d0, d1, d2, d3, d4, d5, d6, labels_v):
-
-    loss0 = bce_loss(d0,labels_v)
-    loss1 = bce_loss(d1,labels_v)
-    loss2 = bce_loss(d2,labels_v)
-    loss3 = bce_loss(d3,labels_v)
-    loss4 = bce_loss(d4,labels_v)
-    loss5 = bce_loss(d5,labels_v)
-    loss6 = bce_loss(d6,labels_v)
-
-    loss = loss0 + loss1 + loss2 + loss3 + loss4 + loss5 + loss6
-    return loss
 
 def normPRED(d):
     ma = torch.max(d)
@@ -37,7 +25,10 @@ def __test(model, device, test_loader, depth_criterion, seg_criterion):
     with torch.no_grad():
         pbar = tqdm(test_loader)
         torch.cuda.empty_cache()
+        gc.collect()
         running_loss = 0
+        miou = 0.0
+        mrmse = 0.0
         for batch_idx, data in enumerate(pbar):
             start_time = time.time()
             ite_num4val = ite_num4val + 1
@@ -57,11 +48,14 @@ def __test(model, device, test_loader, depth_criterion, seg_criterion):
             loss = dep_loss + seg_loss
       
             running_loss += loss.item()
+            miou += iou_pytorch(seg_out, mask)
+            rmse = RMSELoss()
+            mrmse += rmse(dep_out, dense_depth)
 
             del dep_out,d2,d3,d4,d5,d6,d7,seg_out,s2,s3,s4,s5,s6,s7,loss
             gc.collect()
             end_time = time.time()
-            pbar.set_description(desc=f'Batch_id={batch_idx} Test set: Average loss: {running_loss / ite_num4val}  Batch Time={end_time-start_time} Secs)')
+            pbar.set_description(desc=f'Batch_id={batch_idx} Test set: Average loss: {running_loss / ite_num4val} Accuracy IOU(Segmentation)={miou/ite_num4val} RMSE(Dense depth)={mrmse/ite_num4val}  Avg Batch Time={end_time-start_time} Secs)')
             
 
 

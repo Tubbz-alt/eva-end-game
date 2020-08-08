@@ -5,24 +5,13 @@ import torch
 from torch.autograd import Variable
 import time
 import gc
+from loss import *
+# from pytorch_ssim import *
 
 train_losses = []
 train_acc = []
 running_loss = 0.0
-bce_loss = nn.BCELoss(size_average=True)
 
-def muti_bce_loss_fusion(d0, d1, d2, d3, d4, d5, d6, labels_v):
-
-    loss0 = bce_loss(d0,labels_v)
-    loss1 = bce_loss(d1,labels_v)
-    loss2 = bce_loss(d2,labels_v)
-    loss3 = bce_loss(d3,labels_v)
-    loss4 = bce_loss(d4,labels_v)
-    loss5 = bce_loss(d5,labels_v)
-    loss6 = bce_loss(d6,labels_v)
-
-    loss = loss0 + loss1 + loss2 + loss3 + loss4 + loss5 + loss6
-    return loss
 
 def getOptimizer(model, lr=0.001, momentum=0.9, weight_decay=0):
   optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=weight_decay)
@@ -35,7 +24,10 @@ def train(model, device, train_loader, optimizer, depth_criterion, seg_criterion
   model.train()
   pbar = tqdm(train_loader)
   running_loss = 0.0
+  miou = 0.0
+  mrmse = 0.0
   torch.cuda.empty_cache()
+  gc.collect()
   for batch_idx, data in enumerate(pbar):
       start_time = time.time()
       ite_num4val = ite_num4val + 1
@@ -57,10 +49,15 @@ def train(model, device, train_loader, optimizer, depth_criterion, seg_criterion
 
       # Calculate losslabels
       dep_loss = depth_criterion(depth_out, d1, d2, d3, d4, d5, d6, dense_depth)
+      # ssim_loss = SSIM()
+      # dep_loss = -ssim_loss(depth_out, dense_depth).data.item()
       seg_loss = seg_criterion(seg_out, s1, s2, s3, s4, s5, s6, mask)
       
       loss = dep_loss + seg_loss
       running_loss += loss.item()
+      miou += iou_pytorch(seg_out, mask)
+      rmse = RMSELoss()
+      mrmse += rmse(depth_out, dense_depth)
 
       # Backpropagation
       loss.backward()
@@ -72,5 +69,5 @@ def train(model, device, train_loader, optimizer, depth_criterion, seg_criterion
         scheduler.step()
 
       end_time = time.time()
-      pbar.set_description(desc= f'Loss={running_loss / ite_num4val}  Batch_id={batch_idx} Total Time={end_time-start_time} Secs')
+      pbar.set_description(desc= f'Batch_id={batch_idx} Train set: Loss={running_loss / ite_num4val} Accuracy IOU(Segmentation)={miou/ite_num4val} RMSE(Dense depth)={mrmse/ite_num4val}  Avg Batch Time={end_time-start_time} Secs')
       

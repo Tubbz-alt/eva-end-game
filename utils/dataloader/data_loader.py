@@ -7,9 +7,10 @@ import numpy as np
 import time
 
 class EndGameDataset(Dataset):
-    def __init__(self, dataset_paths):
+    def __init__(self, dataset_paths, dataset_root):
         dataset_paths_pickle = open(dataset_paths,"rb")
         self.dataset_paths = pickle.load(dataset_paths_pickle)
+        self.dataset_root = dataset_root
 
     def __getitem__(self, idx):
         filepaths = self.dataset_paths[idx]
@@ -32,7 +33,7 @@ class EndGameDataset(Dataset):
       return target
 
     def load_file(self, img_path):
-        img = Image.open(img_path)
+        img = Image.open(self.dataset_root+img_path)
         img_nd = np.array(img)
         if(np.max(img_nd)<1e-6):
           img_nd = img_nd
@@ -65,8 +66,8 @@ class EndGameSubset(Dataset):
     def __len__(self):
         return len(self.subset)
 
-def EndGameTrainTestDataSet(dataset_paths, train_split = 70, train_transforms=None, train_target_transforms=None, test_transforms=None, test_target_transforms=None):
-  dataset = EndGameDataset(dataset_paths)
+def EndGameTrainTestDataSet(dataset_paths, dataset_root, train_split = 70, train_transforms=None, train_target_transforms=None, test_transforms=None, test_target_transforms=None):
+  dataset = EndGameDataset(dataset_paths, dataset_root)
   train_len = len(dataset)*train_split//100
   test_len = len(dataset) - train_len 
   train_set, val_set = random_split(dataset, [train_len, test_len])
