@@ -1,2 +1,9 @@
-# eva-end-game
-Final Project of EVA 
+# Mask and Dense Depth Estimation Using Single Network
+
+## Objective
+* Given background and actual image, network have to predict mask and dense depth of the objects
+* We need to use only a single network, which takes in the two image inputs and gives two image output
+
+
+
+
