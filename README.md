@@ -52,7 +52,7 @@ Used same U2Net model for dense depth estimation
 ### Accuracy
 * Calculated RMSE for measuring accuracy of Dense depth estimation
 
-### Result of Mask prediction (after 2 epochs)
+### Result of Dense depth prediction (after 2 epochs)
 ![Dense depth](https://github.com/santhiya-v/eva-end-game/blob/master/results/dense_depth_prediction.png?raw=true)
 
 ## Things considered for better training
