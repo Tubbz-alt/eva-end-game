@@ -22,6 +22,8 @@
   * It increases the depth of the whole architecture without significantly increasing the computational cost
   ### Model Parameters
   Total params: 1,769,306
+  ### Model Architecture
+  ![U2Net](https://github.com/santhiya-v/eva-end-game/blob/master/results/u2net_architecture.png?raw=true)
   
 ## Approach
 * A small dataset of 12k was taken to carry out experiments
