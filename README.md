@@ -64,14 +64,14 @@ Used same U2Net model for dense depth estimation
 * Model was initally trained on smaller size and gradually increased the size
 * Model is saved after every epoch
 * On increasing the image size, previous model state was loaded and training is continued from there
-* Details of no of epoch, batch size, image size is given below:
+* Details of no of epochs, batch size, image size, accuracy, loss is given below:
 
 No Of Epochs | Batch Size | Image size | Time Taken | Mask Accuracy (IOU) | Dense Depth Accuracy (RMSE) | Loss |
 ------ | ----- | ---------- | ---------- | -------------- | --------- | -------------- |
 10 | 128 | 64*64 | 5.8 hrs | 0.9493 | 0.0666 | 4.2672 |
 2 | 128 | 96*96 | 1.5 hrs | 0.9501 | 0.0689 | 4.0669 |
 2 | 128 | 112*112 | 1.9 hrs |  0.9501 | 0.0689 | 4.0669 |
-2 | 64 | 224*224 | - | | | |
+1 | 32 | 224*224 | 3.1 hrs | 0.9685 | 0.0801 | 3.988 |
 
 ## Time 
 Task | Time |
