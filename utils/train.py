@@ -19,8 +19,10 @@ def getOptimizer(model, lr=0.001, momentum=0.9, weight_decay=0):
   return optimizer
   
 def train(model, device, train_loader, optimizer, depth_criterion, seg_criterion, l1_factor=0, scheduler=None):
+  """
+  Training the data
+  """
   ite_num4val = 0
-  # save_frq = 2000 # save the model every 2000 iterations
 
   model.train()
   pbar = tqdm(train_loader)

@@ -6,6 +6,9 @@ bce_loss = nn.BCELoss(size_average=True)
 
 
 class RMSELoss(nn.Module):
+    """
+    RMSE Loss Function
+    """
     def __init__(self, eps=1e-6):
         super().__init__()
         self.mse = nn.MSELoss()
@@ -16,7 +19,9 @@ class RMSELoss(nn.Module):
         return loss
 
 def muti_bce_loss_fusion(d0, d1, d2, d3, d4, d5, d6, labels_v):
-
+    """
+    BCE loss applied on all side outputs of the model
+    """
     loss0 = bce_loss(d0,labels_v)
     loss1 = bce_loss(d1,labels_v)
     loss2 = bce_loss(d2,labels_v)
@@ -29,6 +34,9 @@ def muti_bce_loss_fusion(d0, d1, d2, d3, d4, d5, d6, labels_v):
     return loss
 
 def iou_pytorch(outputs: torch.Tensor, targets: torch.Tensor):
+    """
+    Calculates IOU of the two image tensors
+    """
     eps = 1e-6
     outputs = outputs.cpu().data.numpy()
     targets = targets.cpu().data.numpy()

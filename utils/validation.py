@@ -21,6 +21,9 @@ def normPRED(d):
     return dn
 
 def __test(model, device, test_loader, depth_criterion, seg_criterion):
+    """
+    Evaluates the model 
+    """
     model.eval()
     ite_num4val = 0
     with torch.no_grad():

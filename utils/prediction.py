@@ -3,6 +3,7 @@ import torch
 import torch.nn.functional as F
 from PIL import Image
 from utils import *
+import numpy as np
 
 
 def normPRED(d):
@@ -14,6 +15,9 @@ def normPRED(d):
     return dn
 
 def predict(model, device, data):
+    """
+    Runs the inference on the data and returns the result
+    """
     model.eval()
     with torch.no_grad():
         bg, fg_bg, dense_depth, mask = data['bg'], data['fg_bg'], data['dense_depth'], data['fg_bg_mask']
