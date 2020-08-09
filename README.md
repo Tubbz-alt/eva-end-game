@@ -66,12 +66,12 @@ Used same U2Net model for dense depth estimation
 * On increasing the image size, previous model state was loaded and training is continued from there
 * Details of no of epochs, batch size, image size, accuracy, loss is given below:
 
-No Of Epochs | Batch Size | Image size | Time Taken | Mask Accuracy (IOU) | Dense Depth Accuracy (RMSE) | Loss |
------- | ----- | ---------- | ---------- | -------------- | --------- | -------------- |
-10 | 128 | 64*64 | 5.8 hrs | 0.9493 | 0.0666 | 4.2672 |
-2 | 128 | 96*96 | 1.5 hrs | 0.9640 | 0.0601 | 4.0675 |
-2 | 128 | 112*112 | 1.9 hrs |  0.9668 | 0.0592 | 4.0162 |
-1 | 32 | 224*224 | 3.1 hrs | 0.9685 | 0.0801 | 3.988 |
+No Of Epochs | Batch Size | Image size | Time Taken | Mask Accuracy (IOU) | Dense Depth Accuracy (RMSE) | Loss | Notebook |
+------ | ----- | ---------- | ---------- | -------------- | --------- | -------------- | -------- |
+10 | 128 | 64*64 | 5.8 hrs | 0.9493 | 0.0666 | 4.2672 | https://github.com/santhiya-v/eva-end-game/blob/master/EndGame_64.ipynb |
+2 | 128 | 96*96 | 1.5 hrs | 0.9640 | 0.0601 | 4.0675 | https://github.com/santhiya-v/eva-end-game/blob/master/EndGame_96.ipynb |
+2 | 128 | 112*112 | 1.9 hrs |  0.9668 | 0.0592 | 4.0162 | https://github.com/santhiya-v/eva-end-game/blob/master/EndGame_112.ipynb |
+1 | 32 | 224*224 | 3.1 hrs | 0.9685 | 0.0801 | 3.988 | https://github.com/santhiya-v/eva-end-game/blob/master/EndGame_224.ipynb |
 
 ## Time 
 Task | Time |
