@@ -25,24 +25,24 @@ Each task was first individually experimented, before combining them into one ne
 ## Mask / Image Segmentation
 Used the model as in the https://github.com/NathanUA/U-2-Net for mask prediction
 
-## Loss functions
+### Loss functions
 * Used Multi BCE loss which was suggested in U2Net implementation
 
-## Accuracy
+### Accuracy
 * Calculated IOU for measuring accuracy of Image segmentation 
 
-## Result of Mask prediction
+### Result of Mask prediction (after 2 epochs)
 ![Mask Prediction](https://github.com/santhiya-v/eva-end-game/blob/master/results/mask_prediction.png?raw=true)
 
 ## Dense Depth
-## Loss functions
+### Loss functions
 * Used same BCE loss function since that was giving better results for dense depth as well
 * Explored on SSIM, and other losses
 
-## Accuracy
+### Accuracy
 * Calculated RMSE for measuring accuracy of Dense depth estimation
 
-## Result of Mask prediction
+### Result of Mask prediction (after 2 epochs)
 ![Dense depth](https://github.com/santhiya-v/eva-end-game/blob/master/results/dense_depth_prediction.png?raw=true)
 
 ## Things considered for better training
