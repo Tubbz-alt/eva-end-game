@@ -34,7 +34,7 @@
 Used the model as in the https://github.com/NathanUA/U-2-Net for mask prediction
 
 ### Loss functions
-* Used Multi BCE loss which was suggested in U2Net implementation
+* Used Multi BCE loss which was suggested in U2Net implementation, which calculates Binary Cross Entropy loss for all the sides output
 
 ### Accuracy
 * Calculated IOU for measuring accuracy of Image segmentation 
@@ -43,9 +43,11 @@ Used the model as in the https://github.com/NathanUA/U-2-Net for mask prediction
 ![Mask Prediction](https://github.com/santhiya-v/eva-end-game/blob/master/results/mask_prediction.png?raw=true)
 
 ## Dense Depth
+Used same U2Net model for dense depth estimation
+
 ### Loss functions
-* Used same BCE loss function since that was giving better results for dense depth as well
-* Explored on SSIM, and other losses
+* Used multi BCE loss function since that was giving better results for dense depth as well
+* Explored on SSIM loss but BCE was giving better result 
 
 ### Accuracy
 * Calculated RMSE for measuring accuracy of Dense depth estimation
@@ -54,14 +56,22 @@ Used the model as in the https://github.com/NathanUA/U-2-Net for mask prediction
 ![Dense depth](https://github.com/santhiya-v/eva-end-game/blob/master/results/dense_depth_prediction.png?raw=true)
 
 ## Things considered for better training
+* Fg Bg Mask and Dense depth was prepared as 1 channel image for memory efficiency
+* Dataset paths are pickled and saved. Dataloader loads the pickled data everytime. This reduces timing on framing dataset paths
+* Training from drive was huge time consuming and hence moved the dataset to colab for faster running
 
 ## Model Training
-Epochs | Batch | Image size | Time Taken | 
------- | ----- | ---------- | ---------- |
-10 | 128 | 64*64 | 5.8 hrs |
-2 | 128 | 96*96 | 1.2 hrs |
-2 | 128 | 112*112 | 1.2 hrs |
-2 | 64 | 224*224 | - |
+* Model was initally trained on smaller size and gradually increased the size
+* Model is saved after every epoch
+* On increasing the image size, previous model state was loaded and training is continued from there
+* Details of no of epoch, batch size, image size is given below:
+
+No Of Epochs | Batch Size | Image size | Time Taken | Mask Accuracy (IOU) | Dense Depth Accuracy (RMSE) | Loss |
+------ | ----- | ---------- | ---------- | -------------- | --------- | -------------- |
+10 | 128 | 64*64 | 5.8 hrs | 0.9493 | 0.0666 | 4.2672 |
+2 | 128 | 96*96 | 1.5 hrs | | | |
+2 | 128 | 112*112 | 1.9 hrs | | | |
+2 | 64 | 224*224 | - | | | |
 
 ## Time 
 
