@@ -90,7 +90,7 @@ Time to load dataset to colab  | 4.9 Mins |
 ### Results after 14 Epochs (Trained on 112*112)
 ![prediction_112](https://github.com/santhiya-v/eva-end-game/blob/master/results/prediction_aft_14_epochs_112.png?raw=true)
 
-### Results after 16 Epochs (Trained on 224*224)
+### Results after 15 Epochs (Trained on 224*224)
 ![prediction_224](https://github.com/santhiya-v/eva-end-game/blob/master/results/prediction_aft_16_epochs_224.png?raw=true)
 
 ## References
