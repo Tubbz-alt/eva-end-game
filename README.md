@@ -10,25 +10,6 @@
 
 * Dataset preparation itself is a big journey! 
 * Details of how it is prepared can be found here : https://github.com/santhiya-v/EVA/tree/master/S15/A
-* Few samples of dataset is shown here 
-
-## BG
-![BG](https://github.com/santhiya-v/EVA/blob/master/S15/A/dataset_sample/bg.png?raw=true)
-
-## FG
-![FG](https://github.com/santhiya-v/EVA/blob/master/S15/A/dataset_sample/fg.png?raw=true)
-
-## FG Mask
-![FG Mask](https://github.com/santhiya-v/EVA/blob/master/S15/A/dataset_sample/fg_mask.png?raw=true)
-
-## FG BG
-![FG BG](https://github.com/santhiya-v/EVA/blob/master/S15/A/dataset_sample/fg_bg.png?raw=true)
-
-## FG BG Mask
-![FG BG Mask](https://github.com/santhiya-v/EVA/blob/master/S15/A/dataset_sample/fg_bg_mask.png?raw=true)
-
-## Depth Images
-![Depth](https://github.com/santhiya-v/EVA/blob/master/S15/A/dataset_sample/depth.png?raw=true)
 
 ## Model selection 
 * Both the tasks in hand, depth estimation and mask prediction, needed encoder-decoder kind of architecture
