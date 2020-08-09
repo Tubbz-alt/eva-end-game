@@ -9,6 +9,7 @@ from loss import *
 
 test_losses = []
 test_acc = []
+rmse = RMSELoss()
 
 
 def normPRED(d):
@@ -49,11 +50,11 @@ def __test(model, device, test_loader, depth_criterion, seg_criterion):
       
             running_loss += loss.item()
             miou += iou_pytorch(seg_out, mask)
-            rmse = RMSELoss()
             mrmse += rmse(dep_out, dense_depth)
 
-            del dep_out,d2,d3,d4,d5,d6,d7,seg_out,s2,s3,s4,s5,s6,s7,loss
+            del dep_out,d2,d3,d4,d5,d6,d7,seg_out,s2,s3,s4,s5,s6,s7,loss,bg, fg_bg, dense_depth, mask
             gc.collect()
+            # torch.cuda.empty_cache()
             end_time = time.time()
             pbar.set_description(desc=f'Batch_id={batch_idx} Test set: Average loss: {running_loss / ite_num4val} Accuracy IOU(Segmentation)={miou/ite_num4val} RMSE(Dense depth)={mrmse/ite_num4val}  Avg Batch Time={end_time-start_time} Secs)')
             

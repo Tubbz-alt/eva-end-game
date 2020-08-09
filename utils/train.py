@@ -11,6 +11,7 @@ from loss import *
 train_losses = []
 train_acc = []
 running_loss = 0.0
+rmse = RMSELoss()
 
 
 def getOptimizer(model, lr=0.001, momentum=0.9, weight_decay=0):
@@ -55,19 +56,21 @@ def train(model, device, train_loader, optimizer, depth_criterion, seg_criterion
       
       loss = dep_loss + seg_loss
       running_loss += loss.item()
-      miou += iou_pytorch(seg_out, mask)
-      rmse = RMSELoss()
-      mrmse += rmse(depth_out, dense_depth)
+      
+      with torch.no_grad():
+        miou += iou_pytorch(seg_out, mask)
+        mrmse += rmse(depth_out, dense_depth)
 
       # Backpropagation
       loss.backward()
       optimizer.step()
-      del seg_out, s1, s2, s3, s4, s5, s6, depth_out, d1, d2, d3, d4, d5, d6, dep_loss, seg_loss, loss
+      del seg_out, s1, s2, s3, s4, s5, s6, depth_out, d1, d2, d3, d4, d5, d6, dep_loss, seg_loss, loss, bg, fg_bg, dense_depth, mask
       gc.collect()
+      # torch.cuda.empty_cache()
 
       if scheduler:
         scheduler.step()
 
       end_time = time.time()
-      pbar.set_description(desc= f'Batch_id={batch_idx} Train set: Loss={running_loss / ite_num4val} Accuracy IOU(Segmentation)={miou/ite_num4val} RMSE(Dense depth)={mrmse/ite_num4val}  Avg Batch Time={end_time-start_time} Secs')
+      pbar.set_description(desc= f'Batch_id={batch_idx} Train set: Loss={running_loss / ite_num4val}  Accuracy IOU(Segmentation)={miou/ite_num4val} RMSE(Dense depth)={mrmse/ite_num4val}  Avg Batch Time={end_time-start_time} Secs')
       
