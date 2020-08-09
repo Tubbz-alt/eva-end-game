@@ -69,13 +69,29 @@ Used same U2Net model for dense depth estimation
 No Of Epochs | Batch Size | Image size | Time Taken | Mask Accuracy (IOU) | Dense Depth Accuracy (RMSE) | Loss |
 ------ | ----- | ---------- | ---------- | -------------- | --------- | -------------- |
 10 | 128 | 64*64 | 5.8 hrs | 0.9493 | 0.0666 | 4.2672 |
-2 | 128 | 96*96 | 1.5 hrs | | | |
-2 | 128 | 112*112 | 1.9 hrs | | | |
+2 | 128 | 96*96 | 1.5 hrs | 0.9501 | 0.0689 | 4.0669 |
+2 | 128 | 112*112 | 1.9 hrs |  0.9501 | 0.0689 | 4.0669 |
 2 | 64 | 224*224 | - | | | |
 
 ## Time 
+Task | Time |
+---- | ---- |
+Average train time for 1 Epoch | 36 Mins |
+Average test time for 1 Epoch  | 7 Mins |
+Time to load dataset to colab  | 4.9 Mins |
 
 ## Results
+### Results after 10 Epochs (Trained on 64*64)
+![prediction_64](https://github.com/santhiya-v/eva-end-game/blob/master/results/prediction_aft_10_epochs.png?raw=true)
+
+### Results after 12 Epochs (Trained on 96*96)
+![prediction_96](https://github.com/santhiya-v/eva-end-game/blob/master/results/prediction_aft_12_epochs_96.png?raw=true)
+
+### Results after 14 Epochs (Trained on 112*112)
+![prediction_112](https://github.com/santhiya-v/eva-end-game/blob/master/results/prediction_aft_12_epochs_96.png?raw=true)
+
+### Results after 16 Epochs (Trained on 224*224)
+![prediction_224](https://github.com/santhiya-v/eva-end-game/blob/master/results/prediction_aft_12_epochs_96.png?raw=true)
 
 ## References
 * https://github.com/NathanUA/U-2-Net
