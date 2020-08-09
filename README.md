@@ -10,6 +10,9 @@
 
 * Dataset preparation itself is a big journey! 
 * Details of how it is prepared can be found here : https://github.com/santhiya-v/EVA/tree/master/S15/A
+* So now we have dataset prepared and few samples of inputs and ground truth can be seen below :
+![Dataset](https://github.com/santhiya-v/eva-end-game/blob/master/results/dataset.png?raw=true)
+
 
 ## Model selection 
 * Both the tasks in hand, depth estimation and mask prediction, needed encoder-decoder kind of architecture
@@ -20,7 +23,12 @@
   ### Model Parameters
   Total params: 1,769,306
   
-Each task was first individually experimented, before combining them into one network
+## Approach
+* A small dataset of 12k was taken to carry out experiments
+* Each task was first individually experimented, before combining them into one network
+* Experimented with varying batch size, workers, loss functions to arrive at optimum methods
+* Arrived at a single network to train both dense depth and mask in single network
+* Started with smaller image size and gradually increased the image size for best accuracy
 
 ## Mask / Image Segmentation
 Used the model as in the https://github.com/NathanUA/U-2-Net for mask prediction
@@ -48,10 +56,22 @@ Used the model as in the https://github.com/NathanUA/U-2-Net for mask prediction
 ## Things considered for better training
 
 ## Model Training
+Epochs | Batch | Image size | Time Taken | 
+------ | ----- | ---------- | ---------- |
+10 | 128 | 64*64 | 5.8 hrs |
+2 | 128 | 96*96 | 1.2 hrs |
+2 | 128 | 112*112 | 1.2 hrs |
+2 | 64 | 224*224 | - |
 
 ## Time 
 
 ## Results
+
+## References
+* https://github.com/NathanUA/U-2-Net
+* https://arxiv.org/pdf/2005.09007.pdf
+* https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7038358/
+* https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6514714/
 
 
 
